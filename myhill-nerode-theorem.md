@@ -3,6 +3,11 @@ title: "Theory of Computation: Myhill-Nerode Theorem"
 toc: true
 attribution: wolgwang
 permalink: /:basename/
+date: 2025-12-01
+blog: true
+topic: Theory of Computation
+read_time: 9 min read
+summary: "An intuitive guide to the Myhill-Nerode theorem with DFA minimization steps and worked examples."
 ---
 
 ## Introduction

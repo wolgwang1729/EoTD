@@ -3,6 +3,11 @@ title: "Theory of Computation: Pumping Lemma"
 toc: true
 attribution: wolgwang
 permalink: /:basename/
+date: 2025-12-18
+blog: true
+topic: Theory of Computation
+read_time: 12 min read
+summary: "Formal statement, proof intuition, and contradiction-based usage of the pumping lemma for regular languages."
 ---
 
 ## Introduction

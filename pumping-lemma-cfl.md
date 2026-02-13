@@ -3,6 +3,11 @@ title: "Theory of Computation: Pumping Lemma for CFL"
 toc: true
 attribution: wolgwang
 permalink: /:basename/
+date: 2026-01-05
+blog: true
+topic: Formal Languages
+read_time: 11 min read
+summary: "Pumping lemma for context-free languages with parse-tree intuition and contradiction examples."
 ---
 
 ## Introduction

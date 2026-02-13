@@ -3,6 +3,11 @@ title: "Blog Writing Reference"
 toc: true
 attribution: site author
 permalink: /:basename/
+date: 2026-01-20
+blog: true
+topic: Writing & Tooling
+read_time: 6 min read
+summary: "A practical markdown reference for writing technical blog posts with consistent formatting."
 ---
 
 Use this page as a copy/paste reference when writing posts.

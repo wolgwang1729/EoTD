@@ -443,6 +443,81 @@ img.zoom:not([width]) {
     letter-spacing: 1px;
 }
 
+/* Home page */
+.home-hero {
+    border: 1px solid $border-dark;
+    border-radius: 12px;
+    padding: 20px;
+    margin-bottom: 18px;
+    background: linear-gradient(180deg, rgba(122, 176, 255, 0.08), rgba(122, 176, 255, 0));
+}
+
+.home-hero-kicker {
+    font-size: 80%;
+    font-weight: 700;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    color: $text-secondary;
+    margin-bottom: 8px;
+}
+
+.home-hero h2 {
+    margin-bottom: 10px;
+}
+
+.home-hero p {
+    margin-bottom: 0;
+    color: $text-secondary;
+}
+
+.home-blog-list {
+    display: grid;
+    gap: 12px;
+}
+
+.home-post-card {
+    border: 1px solid $border-dark;
+    border-radius: 12px;
+    background: $surface-1;
+    padding: 16px;
+}
+
+.home-post-meta {
+    font-size: 78%;
+    color: $text-secondary;
+    text-transform: uppercase;
+    letter-spacing: 0.6px;
+    margin-bottom: 8px;
+}
+
+.home-meta-sep {
+    margin: 0 8px;
+}
+
+.home-post-title {
+    margin: 0 0 8px;
+}
+
+.home-post-title a {
+    color: $text-primary;
+}
+
+.home-post-title a:hover {
+    color: $link-hover-dark;
+    text-decoration: none;
+}
+
+.home-post-summary {
+    margin-bottom: 10px;
+    color: $text-secondary;
+}
+
+.home-post-cta {
+    margin-bottom: 0;
+    font-size: 90%;
+    font-weight: 700;
+}
+
 // JDZ turn on for debugging
 NOTdiv {
     border: 1px dotted gray;
