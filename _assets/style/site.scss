@@ -439,7 +439,7 @@ img.zoom:not([width]) {
 .smallcaps {
     font-size: 80%;
     font-weight: 700;
-    text-transform: uppercase;
+    text-transform: none;
     letter-spacing: 1px;
 }
 
@@ -456,7 +456,7 @@ img.zoom:not([width]) {
     font-size: 80%;
     font-weight: 700;
     letter-spacing: 1px;
-    text-transform: uppercase;
+    text-transform: none;
     color: $text-secondary;
     margin-bottom: 8px;
 }
@@ -485,7 +485,7 @@ img.zoom:not([width]) {
 .home-post-meta {
     font-size: 78%;
     color: $text-secondary;
-    text-transform: uppercase;
+    text-transform: none;
     letter-spacing: 0.6px;
     margin-bottom: 8px;
 }
