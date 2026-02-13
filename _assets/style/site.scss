@@ -167,18 +167,27 @@ main.main {
 
 .footer-brand {
     display: flex;
-    flex-direction: column;
-    gap: 4px;
+    flex-direction: row;
+    align-items: center;
+    gap: 15px;
+}
+
+.footer-brand a {
+    display: flex;
+    align-items: center;
 }
 
 .footer-copy {
     color: #a3a3a3;
     font-size: 13px;
+    margin: 0;
+    text-align: center;
 }
 
 .site-footer ul {
     list-style: none;
     margin-bottom: 0;
+    padding-left: 0;
 }
 
 .footer-links {
@@ -231,7 +240,26 @@ main.main {
 
     .site-footer-inner {
         flex-direction: column;
-        align-items: flex-start;
+        align-items: center;
+        text-align: center;
+    }
+
+    .footer-brand {
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 8px;
+        width: 100%;
+    }
+
+    .footer-copy {
+        margin: 0;
+        text-align: center;
+    }
+
+    .footer-links {
+        width: 100%;
+        justify-content: center;
     }
 }
 
