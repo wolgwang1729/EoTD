@@ -1,0 +1,23 @@
+/* Basic styles for automatically-generated figure captions */
+.auto-figure {
+  display: block;
+  margin: 1.25rem 0;
+  text-align: center;
+}
+.auto-figure img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+.auto-figure-caption {
+  margin-top: 0.35rem;
+  color: #6b6b6b;
+  font-size: 0.95rem;
+}
+
+/* Slightly smaller caption for sidebar or narrow columns */
+@media (max-width: 480px) {
+  .auto-figure-caption { font-size: 0.9rem; }
+}

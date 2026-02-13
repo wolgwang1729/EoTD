@@ -1,7 +1,7 @@
 ---
 title: "Blog Writing Reference"
 toc: true
-attribution: site author
+attribution: wolgwang
 permalink: /:basename/
 date: 2026-01-20
 blog: true
