@@ -1,0 +1,901 @@
+@import 'default_theme.scss';
+
+$SIDEBAR_WIDTH: 18em;
+$SIDEBAR_CONTENT_MARGIN: 0.5em;
+$SIDEBAR_RIGHT_BORDER_STYLE: 1px solid var(--sidebar-border-color, lightgrey);
+
+$ICON_FONT_SIZE: 28px;
+$ICON_HOVER_COLOR: rgb(211, 85, 2);
+$TOPBAR_HEIGHT: $ICON_FONT_SIZE * 2;
+
+// To ensure correct visual layering of the components on the page, we need
+// to specify these z-indices.
+// The sidebar is *always* on top of the topbar, which is always on top of
+// the settings modal.
+// When the settings modal is shown, it should always on top of any main
+// content (including MathJax content, which has z-index 1).
+$Z_INDEX_SETTINGS: 2;
+$Z_INDEX_TOPBAR: 3;
+$Z_INDEX_SIDEBAR: 4;
+$Z_INDEX_SIDEBAR_RESIZE_HANDLE: 5;
+
+$INFO_BG_COLOR: #dbedff;
+$INFO_BORDER_COLOR: rgba(4, 66, 137, 0.2);
+
+// For students printing out the spec, don't print the sidebar and icons.
+@media print {
+  .no-print,
+  .no-print * {
+    display: none !important;
+  }
+
+  // Enable line-wrapping for code blocks (instead of clipping and showing
+  // scrollbars.
+  pre,
+  pre > code {
+    overflow: visible !important;
+    white-space: pre-wrap !important;
+    word-wrap: break-all !important;
+  }
+
+  .primer-spec-code-block table.highlight td.primer-spec-code-block-line-code {
+    overflow: visible !important;
+    white-space: pre-wrap !important;
+    word-wrap: break-all !important;
+  }
+}
+
+/* Sidebar */
+
+.primer-spec-sidebar {
+  width: $SIDEBAR_WIDTH;
+  box-sizing: border-box;
+  padding-left: 1em;
+  height: 100%;
+  overflow: auto;
+  border-right: $SIDEBAR_RIGHT_BORDER_STYLE;
+
+  // To make the sidebar appear on top of the topbar on mobile
+  z-index: $Z_INDEX_SIDEBAR;
+
+  // Need to set a background color because the sidebar overlays on top of
+  // the content. (By default, the element has a transparent background.)
+  background-color: var(--sidebar-bg-color);
+
+  color: var(--sidebar-toc-section-link-color);
+
+  // These are headers within the sidebar
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    color: var(--sidebar-heading-text-color);
+    :link,
+    :visited {
+      color: var(--sidebar-heading-link-color);
+    }
+  }
+
+  .left-space-fix {
+    // We want the background-border to extend a bit to the left. We
+    // achieve this by moving the entire element to the left, and then
+    // adding padding to keep the content's position unchanged.
+    margin-left: -0.5em;
+    padding-left: 0.5em;
+  }
+
+  details {
+    & > summary {
+      // Match the H1 styles
+      font-size: 1.2em;
+      margin-top: 0.7em;
+      font-weight: bold;
+      color: var(--sidebar-toc-h1-link-color);
+      &.primer-spec-toc-active {
+        color: var(
+          --sidebar-active-toc-h1-section-link-color,
+          var(--sidebar-active-toc-section-link-color)
+        );
+      }
+    }
+
+    details > summary {
+      // Match the H2 styles
+      font-size: 1.2em;
+      margin-top: 0.5em;
+      font-weight: 500;
+      color: var(--sidebar-toc-h2-link-color);
+      &.primer-spec-toc-active {
+        color: var(
+          --sidebar-active-toc-h2-section-link-color,
+          var(--sidebar-active-toc-section-link-color)
+        );
+      }
+    }
+
+    hr {
+      border-color: var(--sidebar-toc-h1-border-color);
+    }
+
+    .external-icon {
+      font-size: 80%;
+    }
+  }
+
+  // RESIZABLE SIDEBAR
+
+  &-resize-handle {
+    height: 100%;
+    left: $SIDEBAR_WIDTH;
+    width: 10px;
+    cursor: col-resize;
+    -webkit-touch-callout: none;
+    user-select: none;
+    z-index: $Z_INDEX_SIDEBAR_RESIZE_HANDLE;
+
+    &:hover,
+    &:active {
+      border-left: 1px double var(--sidebar-resize-handle);
+    }
+  }
+}
+
+.primer-spec-topbar {
+  height: $TOPBAR_HEIGHT;
+  // We don't want the Topbar to register click events. This allows clicks to
+  // pass-through to underlying main-content.
+  pointer-events: none;
+  z-index: $Z_INDEX_TOPBAR;
+}
+
+/**
+ * On mobile (when the topbar is displayed), create an invisible pseudo-element
+ * and make it the height of the sticky navbar so the jump takes you to a
+ * location above the AnchorJS link.
+ */
+@media only screen and (max-width: 900px) {
+  :target:before {
+    content: '';
+    display: block;
+    margin-top: -$TOPBAR_HEIGHT;
+    height: $TOPBAR_HEIGHT;
+    width: 1px;
+  }
+}
+
+.primer-spec-float {
+  &-left {
+    position: absolute;
+    left: 1em;
+    .primer-spec-topbar-button {
+      display: inline;
+      padding-right: 2em;
+    }
+  }
+  &-right {
+    position: absolute;
+    right: 1em;
+    .primer-spec-topbar-button {
+      display: inline;
+      padding-left: 2em;
+    }
+  }
+}
+
+.primer-spec-content {
+  &-margin-extra {
+    // When the sidebar is shown, this ensures that the body of the page
+    // does not overlap with the sidebar.
+    // This is not done on small screens, because the sidebar overlays
+    // on top of the content.
+    margin-left: $SIDEBAR_WIDTH + $SIDEBAR_CONTENT_MARGIN;
+  }
+  &-margin-auto {
+    // When the sidebar is not shown, this ensures that the body of the
+    // page stays centered like the default theme.
+    margin-left: auto;
+  }
+  &-mobile {
+    // On mobile, make space for the topbar.
+    padding-top: $ICON_FONT_SIZE;
+  }
+  &-frozen {
+    // When the settings pane is shown as an overlay, we want to prevent
+    // scrolling on the underlying main content. These styles prevent
+    // scrolling.
+    // (They also reset the scroll position, so JS is responsible for restoring
+    // the original scroll state after the settings pane is closed.)
+    position: fixed;
+    overflow: hidden;
+  }
+}
+
+// These are section headers in the sidebar
+.primer-spec-toc {
+  &-list {
+    list-style-type: none;
+  }
+  &-item {
+    // Prevent header items from ending too near the border of the Sidebar
+    padding-right: 1em;
+
+    // If a heading item is too long and cannot be broken by the browser,
+    // don't expand the width of the entire Sidebar. Instead, only make the
+    // "offending" heading scrollable. (Kind-of-like how we currently treat
+    // code-blocks and LaTeX on small screens.)
+    overflow-x: auto;
+    // But don't show vertical scrollbars, they look jarring.
+    overflow-y: hidden;
+  }
+  &-sitemap-item {
+    // Needs to be `padding`. `margin` cuts off background color of child
+    // elements!
+    padding-left: 1em;
+    overflow-x: auto;
+    overflow-y: hidden;
+
+    &:not(.primer-spec-toc-active) {
+      color: var(--sidebar-toc-h1-link-color) !important;
+    }
+  }
+
+  details > &-sitemap-external {
+    // Don't include a list item icon for external links.
+    // Based on: https://stackoverflow.com/a/66814239
+    & {
+      list-style: none;
+    }
+    &::marker, /* Chrome, Edge, Firefox */ 
+    &::-webkit-details-marker /* Safari */ {
+      display: none;
+    }
+
+    i {
+      padding-left: 0.3rem;
+      font-size: 0.8rem;
+    }
+  }
+
+  &-h1 {
+    margin-left: auto;
+    margin-top: 0.7em;
+    font-weight: bold;
+    font-size: 1.2em;
+
+    &:not(.primer-spec-toc-active) {
+      &:link,
+      &:visited,
+      :link,
+      :visited {
+        color: var(--sidebar-toc-h1-link-color) !important;
+      }
+    }
+
+    // Only show the section border for H1 sections
+    & + .primer-spec-toc-section {
+      margin-left: 1em;
+      border-left: 0.15em solid var(--sidebar-toc-h1-border-color);
+    }
+  }
+  &-h2 {
+    margin-left: 12px;
+    margin-top: 0.5em;
+    // medium font-weight (normal is 400, bold is 700)
+    font-weight: 500;
+    font-size: 1.2em;
+
+    &:not(.primer-spec-toc-active) {
+      &:link,
+      &:visited,
+      :link,
+      :visited {
+        color: var(--sidebar-toc-h2-link-color) !important;
+      }
+    }
+  }
+  &-h3 {
+    margin-top: 0.3em;
+    font-size: 1em;
+  }
+  &-h4 {
+    font-style: italic;
+    font-size: 0.9em;
+  }
+  &-h5 {
+    font-size: 0.8em;
+  }
+  &-h6 {
+    font-size: 0.7em;
+  }
+  // H1 and H2 may need different active styles than the rest. SO:
+  &-active.primer-spec-toc-h1 {
+    &:link,
+    &:visited,
+    :link,
+    :visited {
+      color: var(
+        --sidebar-active-toc-h1-section-link-color,
+        var(--sidebar-active-toc-section-link-color)
+      );
+    }
+  }
+  &-active.primer-spec-toc-h2 {
+    &:link,
+    &:visited,
+    :link,
+    :visited {
+      color: var(
+        --sidebar-active-toc-h2-section-link-color,
+        var(--sidebar-active-toc-section-link-color)
+      );
+    }
+  }
+  // H3+ can use the default values
+  &-active {
+    background-color: var(--sidebar-active-toc-section-bg-color);
+    border-radius: 5px 0px 0px 5px;
+    &:link,
+    &:visited,
+    :link,
+    :visited {
+      color: var(--sidebar-active-toc-section-link-color) !important;
+    }
+  }
+  &-item:not(.primer-spec-toc-active) {
+    color: var(--sidebar-toc-section-link-color);
+    &:link,
+    &:visited,
+    :link,
+    :visited {
+      color: var(--sidebar-toc-section-link-color);
+    }
+  }
+
+  // Use the MarkDown body styles for inline code blocks in the Sidebar.
+  code,
+  tt {
+    padding: 0.2em 0.4em;
+    margin: 0;
+    font-size: 85%;
+    background-color: rgba($black, 0.05);
+    border-radius: $border-radius;
+
+    br {
+      display: none;
+    }
+  }
+}
+
+// Attribute selector for all primer-spec-toc-* classes
+div[class^='primer-spec-toc-'],
+.primer-spec-toc-section {
+  padding-left: 0.5em;
+  margin-left: 0em;
+}
+
+.primer-spec-settings {
+  height: 100%;
+  overflow: auto;
+
+  .primer-spec-brand a {
+    color: rgb(170, 167, 167);
+    font-size: small;
+  }
+
+  &-container {
+    background-color: var(--main-bg-color);
+    z-index: $Z_INDEX_SETTINGS;
+  }
+
+  &-theme-preview {
+    &-container {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-around;
+    }
+
+    &-box {
+      cursor: pointer;
+      flex: 0 1 23%;
+      margin-right: 5px;
+      margin-bottom: 10px;
+      margin-left: 5px;
+      min-width: 150px;
+      max-width: 300px;
+      border: var(--main-table-pre-border, 1px solid #eaecef);
+      border-radius: 9px;
+
+      svg {
+        // Round the top corners of the SVG so that it conforms within the
+        // rounded corners of the outer box.
+        border-top-left-radius: 9px;
+        border-top-right-radius: 9px;
+      }
+    }
+
+    &-title {
+      margin-top: -6px;
+      padding: 9px 12px;
+      background-color: var(--main-table-pre-bg-color, #f6f8fa);
+      color: var(--main-table-pre-text-color, black);
+      border-top: var(--main-table-pre-border, 1px solid #eaecef);
+      border-bottom: var(--main-table-pre-border, 1px solid #eaecef);
+      border-bottom-left-radius: 9px;
+      border-bottom-right-radius: 9px;
+    }
+
+    &-selected {
+      border-color: var(
+        --primer-spec-callout-info-border-color,
+        $INFO_BORDER_COLOR
+      );
+      background-color: var(
+        --primer-spec-callout-info-bg-color,
+        $INFO_BG_COLOR
+      );
+    }
+  }
+
+  &-theme-mode-label {
+    display: block;
+  }
+}
+
+/* Main Content */
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  color: var(--main-heading-text-color);
+  :link,
+  :visited {
+    color: var(--main-heading-link-color);
+  }
+
+  .markdown-body & {
+    border-bottom: 1px solid var(--main-header-border-bottom-color, #eaecef);
+  }
+}
+
+:link,
+:visited {
+  color: var(--main-link-color);
+}
+
+.primer-spec-hoverable {
+  font-size: $ICON_FONT_SIZE;
+  color: var(--main-link-color) !important;
+  // Reset pointer events because the Topbar disables this.
+  pointer-events: auto;
+  :hover {
+    color: var(--hoverable-link-hover-color) !important;
+    text-decoration: none;
+  }
+
+  #primer-spec-toc-contents > &.primer-spec-hoverable-float-right {
+    float: right;
+    margin-right: 0.5em;
+  }
+}
+
+// Add fancy background colors for the entire page.
+body,
+.markdown-body,
+.primer-spec-topbar-mobile {
+  background-color: var(--main-bg-color);
+  color: var(--main-text-color);
+}
+
+// We reuse this mixin to define theme color properties for tables and
+// code-blocks.
+@mixin theme-colors($property-name, $bg-color-fallback) {
+  color: var(--#{$property-name}-text-color, inherit);
+  background-color: var(--#{$property-name}-bg-color, $bg-color-fallback);
+  border: var(--#{$property-name}-border, inherit);
+  border-radius: var(--#{$property-name}-border-radius, inherit);
+}
+
+// Add the same background colors to code-blocks in the Sidebar.
+.primer-spec-toc {
+  code,
+  tt {
+    @include theme-colors(tt, rgba(27, 31, 35, 0.05));
+  }
+
+  .primer-spec-toc-active {
+    code,
+    tt {
+      @include theme-colors(sidebar-tt-active, inherit);
+    }
+  }
+}
+
+.markdown-body {
+  // These are user-defined preformatted blocks.
+  :not(.highlight) {
+    & > pre:not(.highlight),
+    & > code,
+    & > tt {
+      @include theme-colors(tt, rgba(27, 31, 35, 0.05));
+    }
+  }
+
+  // These are code blocks with syntax highlighting by Rogue
+  .highlight pre.highlight,
+  pre {
+    @include theme-colors(main-table-pre, #f6f8fa);
+  }
+
+  table tr {
+    // Reuse some styles for [legacy] code blocks
+    color: var(--main-table-pre-text-color, inherit);
+    border-radius: var(--main-table-pre-border-radius, inherit);
+    // But override the background color alone
+    background-color: var(--main-table-bg-color, white);
+    // And don't provide a border, each td has a border
+  }
+
+  // Contrastive coloring for alternate table rows
+  table tr:nth-child(2n) {
+    // But override the background color alone
+    background-color: var(--main-table-bg-contrast-color, #f6f8fa);
+  }
+
+  blockquote {
+    color: var(--main-blockquote-text-color);
+    border-left: 0.25em solid var(--main-blockquote-text-border, #dfe2e5);
+  }
+
+  kbd {
+    color: var(--tt-text-color, #24292f);
+    background-color: var(--main-table-pre-bg-color, #f6f8fa);
+    border: solid 1px var(--kbd-border-color);
+    border-bottom-color: var(--kbd-border-color);
+    box-shadow: inset 0 -1px 0 var(--kbd-border-color);
+  }
+
+  // Kramdown footnotes / citations
+  // https://kramdown.gettalong.org/quickref.html#footnotes
+  div.footnotes[role='doc-endnotes'] {
+    border-top: 1px solid var(--main-header-border-bottom-color, #eaecef);
+    font-size: 0.9em;
+    color: var(--main-blockquote-text-color);
+  }
+  sup > a {
+    &::before {
+      content: '[';
+    }
+    &::after {
+      content: ']';
+    }
+  }
+}
+
+// The dotted underline underneath abbreviations are really close to the
+// text by default. On "modern" browsers, we can control the underline offset.
+// Kramdown docs for using abbreviations: https://kramdown.gettalong.org/quickref.html#abbreviations
+abbr.tooltipped {
+  border-bottom: none;
+  text-decoration: underline;
+  // Safari doesn't support the "text-decoration" shorthand without a vendor
+  // prefix  So we need to specify the decoration style separately.
+  text-decoration-style: dotted;
+  text-underline-offset: 1px;
+}
+
+// Hide the main content, we'll use it to hydrate the MainContent component.
+#primer-spec-plugin-main-content {
+  display: none;
+}
+
+// Task List styling *should* have been included in Primer CSS, but it looks
+// like they missed to include the styles! Here's a fix for Primer Spec pages,
+// we can remove this fix after Primer CSS has been updated.
+li.task-list-item {
+  list-style-type: none;
+  & > label {
+    cursor: pointer;
+  }
+}
+li.task-list-item .task-list-item-checkbox {
+  margin: 0 0.2em 0.25em -1.6em;
+  cursor: pointer;
+}
+
+/*
+ * CALLOUTS
+ */
+
+$CALLOUT_VARIANTS: (
+  'neutral': (
+    'bg': #f6f8fa,
+    'border': #e1e4e8,
+    'color': inherit,
+    'icon-color': inherit,
+    'icon': '',
+  ),
+  'info': (
+    'bg': #ddf4ff,
+    'border': rgba(4, 66, 137, 0.2),
+    'color': inherit,
+    'icon-color': #0969da,
+    'icon': '\f05a',
+    // info-circle
+  ),
+  'warning': (
+    'bg': #fffbdd,
+    'border': rgba(176, 136, 0, 0.2),
+    'color': inherit,
+    'icon-color': #9a6700,
+    'icon': '\f071',
+    // exclamation-triangle
+  ),
+  'danger': (
+    'bg': #ffe3e6,
+    'border': rgba(158, 28, 35, 0.2),
+    'color': inherit,
+    'icon-color': #cf222e,
+    'icon': '\f06a',
+    // exclamation-circle
+  ),
+  'success': (
+    'bg': #dcffe4,
+    'border': rgba(23, 111, 44, 0.2),
+    'color': inherit,
+    'icon-color': #1a7f37,
+    'icon': '\f00c',
+    // check
+  ),
+);
+
+@mixin calloutVariantProps($variant, $props) {
+  background-color: var(
+    --primer-spec-callout-#{$variant}-bg-color,
+    map-get($props, 'bg')
+  );
+  border-color: var(
+    --primer-spec-callout-#{$variant}-border-color,
+    map-get($props, 'border')
+  );
+  color: var(
+    --primer-spec-callout-#{$variant}-text-color,
+    map-get($props, 'color')
+  );
+}
+
+.primer-spec-callout {
+  position: relative;
+  padding: 20px 16px;
+  border-style: solid;
+  border-width: 1px;
+  border-radius: 6px;
+
+  // By default, use the neutral callout styles
+  @include calloutVariantProps(
+    'neutral',
+    map-get($CALLOUT_VARIANTS, 'neutral')
+  );
+
+  @each $variant, $props in $CALLOUT_VARIANTS {
+    &.#{$variant} {
+      @include calloutVariantProps($variant, $props);
+    }
+  }
+}
+
+// We want to style div callouts like p elements.
+div.primer-spec-callout {
+  margin-top: 0px;
+  margin-bottom: 16px;
+  padding-bottom: 4px;
+}
+
+// Style the icons
+@each $variant, $props in $CALLOUT_VARIANTS {
+  p.primer-spec-callout.#{$variant},
+  div.primer-spec-callout.#{$variant} > p:first-child {
+    &::before {
+      padding-right: 8px;
+      font-family: 'Font Awesome 5 Free';
+      font-weight: 900;
+      color: var(
+        --primer-spec-callout-#{$variant}-icon-color,
+        map-get($props, 'icon-color')
+      );
+      content: map-get($props, 'icon');
+    }
+  }
+}
+
+/*
+ * ENHANCED CODE BLOCKS
+ */
+.markdown-body .primer-spec-code-block {
+  margin-bottom: 16px;
+  font-size: 0.85em;
+  color: var(--code-block-default-color);
+
+  .Box,
+  .Box-header,
+  .Box-body {
+    border-color: var(--code-block-border-color);
+  }
+
+  &-header {
+    background-color: var(--code-block-header-bg-color);
+  }
+
+  &-body {
+    position: relative;
+    tab-size: 4;
+
+    &.primer-spec-code-block-header-present table.highlight {
+      border-top-left-radius: 0px;
+      border-top-right-radius: 0px;
+    }
+  }
+
+  &-highlighted {
+    background-color: var(--code-block-highlight-bg-color);
+    box-shadow: inset 2px 0 0 var(--code-block-highlight-shadow-color);
+  }
+
+  table.highlight {
+    width: 100%;
+    margin: 0px;
+    border: 0px;
+    border-radius: 5px;
+    border-color: var(--code-block-border-color);
+    background-color: var(--code-block-bg-color);
+
+    tr {
+      color: var(--code-block-default-color);
+      background-color: var(--code-block-bg-color);
+      border: 0px;
+    }
+
+    td {
+      border: 0px;
+      line-height: 20px;
+      padding: 2px 10px 0px;
+      vertical-align: bottom;
+    }
+
+    td.primer-spec-code-block-line-number {
+      width: 1%;
+      cursor: pointer;
+      -webkit-user-select: none;
+      -moz-user-select: none;
+      -ms-user-select: none;
+      user-select: none;
+
+      &.primer-spec-code-block-line-numbers-shown {
+        min-width: 50px;
+        color: var(--code-block-line-number-color);
+        text-align: right;
+        white-space: nowrap;
+        vertical-align: top;
+        &::before {
+          content: attr(data-line-number);
+        }
+        &:hover {
+          color: var(--code-block-default-color);
+        }
+      }
+    }
+
+    td.primer-spec-code-block-line-code {
+      position: relative;
+      vertical-align: top;
+      overflow: visible;
+      word-wrap: normal;
+      white-space: pre;
+    }
+  }
+
+  .primer-spec-zeroclipboard-container {
+    opacity: 0;
+    transition: 0.2s cubic-bezier(0.3, 0, 0.5, 1);
+    transition-property: opacity;
+
+    button {
+      color: var(--code-block-button-color);
+      background-color: var(--code-block-button-bg-color);
+      border: 1px solid var(--code-block-button-border-color);
+      border-radius: 6px;
+      box-shadow: var(--code-block-button-shadow),
+        var(--code-block-button-shadow-inset);
+      transition: 0.1s;
+      transition-property: color, background-color, border-color;
+      &:hover {
+        background-color: var(--code-block-button-hover-bg-color);
+        border-color: var(--code-block-button-hover-border-color);
+      }
+    }
+  }
+
+  &:hover .primer-spec-zeroclipboard-container {
+    opacity: 1;
+  }
+}
+
+.tooltipped-n:hover,
+.tooltipped-n:focus {
+  &::before {
+    color: var(--tooltip-background-color);
+    border-top-color: var(--tooltip-background-color);
+  }
+  &::after {
+    color: var(--tooltip-color);
+    background-color: var(--tooltip-background-color);
+    border-color: var(--tooltip-background-color);
+  }
+}
+.tooltipped-w:hover,
+.tooltipped-w:focus {
+  &::before {
+    color: var(--tooltip-background-color);
+    border-left-color: var(--tooltip-background-color);
+  }
+  &::after {
+    color: var(--tooltip-color);
+    background-color: var(--tooltip-background-color);
+    border-color: var(--tooltip-background-color);
+  }
+}
+
+/**
+ * IMAGES
+ */
+
+.markdown-body img {
+  border: 1px solid var(--main-image-border-color);
+  background-color: transparent; // Override default white bg from primer
+}
+.markdown-body img.no-border {
+  border: 0px !important;
+}
+
+// The `invert-colors-in-dark-mode` class technically works on any element,
+// including videos!
+:root[data-theme-mode='dark'] .markdown-body {
+  .invert-colors-in-dark-mode,
+  img[src$='.excalidraw.png'],
+  img[src$='.excalidraw.svg'] {
+    filter: invert(93%) hue-rotate(180deg);
+    border: 1px solid var(--main-image-border-color-inverted);
+  }
+}
+
+// Hide dark-mode images in light mode, and vice versa.
+// (This can be used to create the illusion of images that auto-switch between
+// dark and light mode.)
+$color-mode-opposites: (
+  'dark': 'light',
+  'light': 'dark',
+);
+@each $color-mode, $color-mode-to-hide in $color-mode-opposites {
+  :root[data-theme-mode='#{$color-mode}'] .markdown-body {
+    // GitHub only supports this feature with the `gh-` prefix.
+    // The Primer Spec docs recommend using the same directives to match
+    // GitHub, but we also support a couple of other directives in case
+    // website creators forget what the exact prefix was.
+    img[src$='#gh-#{$color-mode-to-hide}-mode-only'],
+    img[src$='#primer-spec-#{$color-mode-to-hide}-mode-only'],
+    img[src$='##{$color-mode-to-hide}-mode-only'] {
+      display: none;
+    }
+    // The :has() selector doesn't work on most browsers yet, but it will
+    // some day.
+    video:has(source[src$='#gh-#{$color-mode-to-hide}-mode-only']),
+    video:has(source[src$='#primer-spec-#{$color-mode-to-hide}-mode-only']),
+    video:has(source[src$='##{$color-mode-to-hide}-mode-only']) {
+      display: none;
+    }
+  }
+}
