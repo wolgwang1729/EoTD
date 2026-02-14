@@ -42,13 +42,13 @@ We know that a language is regular if a DFA can be constructed which accepts eve
 **Step 2:**  
 The pairs that should be marked are $(A,E),(B,E),(C,E),(D,E)$
 
-|   | A | B | C | D | E |
+|   | $A$ | $B$ | $C$ | $D$ | $E$ |
 |---|---|---|---|---|---|
-| A |   |   |   |   |   |
-| B |   |   |   |   |   |
-| C |   |   |   |   |   |
-| D |   |   |   |   |   |
-| E | ✓ | ✓ | ✓ | ✓ |   |
+| $A$ |   |   |   |   |   |
+| $B$ |   |   |   |   |   |
+| $C$ |   |   |   |   |   |
+| $D$ |   |   |   |   |   |
+| $E$ | ✓ | ✓ | ✓ | ✓ |   |
 
 **Step 3:**
 
@@ -72,23 +72,23 @@ $(\delta(C,0),\delta(D,0))=(D,E)$ and $(\delta(C,1),\delta(D,1))=(C,C)$
 
 So now pairs $(A,D),(B,D),(C,D)$ will be marked.
 
-|   | A | B | C | D | E |
+|   | $A$ | $B$ | $C$ | $D$ | $E$ |
 |---|---|---|---|---|---|
-| A |   |   |   |   |   |
-| B |   |   |   |   |   |
-| C |   |   |   |   |   |
-| D | ✓ | ✓ | ✓ |   |   |
-| E | ✓ | ✓ | ✓ | ✓ |   |
+| $A$ |   |   |   |   |   |
+| $B$ |   |   |   |   |   |
+| $C$ |   |   |   |   |   |
+| $D$ | ✓ | ✓ | ✓ |   |   |
+| $E$ | ✓ | ✓ | ✓ | ✓ |   |
 
 Now pairs $(A,C),(B,C)$ will be marked.
 
-|   | A | B | C | D | E |
+|   | $A$ | $B$ | $C$ | $D$ | $E$ |
 |---|---|---|---|---|---|
-| A |   |   |   |   |   |
-| B |   |   |   |   |   |
-| C | ✓ | ✓ |   |   |   |
-| D | ✓ | ✓ | ✓ |   |   |
-| E | ✓ | ✓ | ✓ | ✓ |   |
+| $A$ |   |   |   |   |   |
+| $B$ |   |   |   |   |   |
+| $C$ | ✓ | ✓ |   |   |   |
+| $D$ | ✓ | ✓ | ✓ |   |   |
+| $E$ | ✓ | ✓ | ✓ | ✓ |   |
 
 **Step 5:**  
 The remaining unmarked pair is $(A,B)$, so states $A$ and $B$ will merge to a new state $AB$.
