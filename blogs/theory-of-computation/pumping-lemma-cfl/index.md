@@ -6,7 +6,7 @@ permalink: /theory-of-computation/pumping-lemma-cfl/
 date: 2025-04-03
 blog: true
 topic: Theory of Computation
-read_time: 11 min read
+read_time: 11 mins read
 summary: "Pumping lemma for context-free languages with parse-tree intuition and contradiction examples."
 ---
 

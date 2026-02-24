@@ -6,7 +6,7 @@ permalink: /theory-of-computation/pumping-lemma/
 date: 2025-02-12
 blog: true
 topic: Theory of Computation
-read_time: 12 min read
+read_time: 12 mins read
 summary: "Formal statement, proof intuition, and contradiction-based usage of the pumping lemma for regular languages."
 ---
 

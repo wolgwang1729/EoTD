@@ -6,7 +6,7 @@ permalink: /theory-of-computation/myhill-nerode-theorem/
 date: 2025-02-09
 blog: true
 topic: Theory of Computation
-read_time: 9 min read
+read_time: 9 mins read
 summary: "An intuitive guide to the Myhill-Nerode theorem with DFA minimization steps and worked examples."
 ---
 

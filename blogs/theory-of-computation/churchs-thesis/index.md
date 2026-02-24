@@ -6,7 +6,7 @@ permalink: /theory-of-computation/churchs-thesis/
 date: 2025-04-10
 blog: true
 topic: Theory of Computation
-read_time: 8 min read
+read_time: 8 mins read
 summary: "A concise historical and conceptual overview of the Church-Turing thesis and why it still matters in modern CS."
 ---
 
