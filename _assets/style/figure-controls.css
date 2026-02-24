@@ -11,10 +11,11 @@
   margin-left: auto;
   margin-right: auto;
 }
-.auto-figure-caption {
+.auto-figure-caption,
+.auto-figure figcaption {
   margin-top: 0.35rem;
-  color: #6b6b6b;
-  font-size: 0.95rem;
+  color: #b8c2d0 !important;
+  font-size: 0.75rem;
 }
 
 /* Slightly smaller caption for sidebar or narrow columns */
