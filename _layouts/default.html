@@ -49,25 +49,43 @@ layout: base
 
 {% if page.blog == true %}
 {% assign all_blog_pages = site.pages | where: "blog", true | sort: "date" | reverse %}
-{% assign related_by_topic = all_blog_pages | where: "topic", page.topic | where_exp: "post", "post.url != page.url" %}
-{% assign related_pages = related_by_topic %}
-{% if related_pages.size == 0 %}
-{% assign related_pages = all_blog_pages | where_exp: "post", "post.url != page.url" %}
+{% assign related_pages = "" | split: "" %}
+{% if page.topic and page.topic != "" %}
+{% assign related_pages = all_blog_pages | where: "topic", page.topic | where_exp: "post", "post.url != page.url" %}
 {% endif %}
 
 {% if related_pages.size > 0 %}
+{% if page contains "toc" and page.toc == true %}
+<div class="row">
+  <div class="col-xs-12 col-md-10">
 <section class="related-blogs" aria-label="Related blog posts">
   <h2 class="related-blogs-title">Related Blogs</h2>
   <ul class="related-blogs-list">
     {% for post in related_pages %}
     <li class="related-blogs-item">
       <div class="related-blogs-line">
-        <a class="related-blogs-link" href="{{ post.url | relative_url }}">{{ post.title }}</a>{% if post.summary %}<span class="related-blogs-snippet"> — {{ post.summary | strip_html }}</span>{% endif %}{% if post.date or post.read_time %}<span class="home-meta-sep">•</span><span class="related-blogs-stats">{% if post.date %}{{ post.date | date: "%b %-d, %Y" }}{% endif %}{% if post.date and post.read_time %}<span class="home-meta-sep">•</span>{% endif %}{% if post.read_time %}{{ post.read_time }}{% endif %}</span>{% endif %}
+        <span class="related-blogs-main"><a class="related-blogs-link" href="{{ post.url | relative_url }}">{{ post.title }}</a>{% if post.summary %}<span class="related-blogs-snippet"> — {{ post.summary | strip_html }}</span>{% endif %}</span>{% if post.date or post.read_time %}<span class="home-meta-sep related-blogs-sep">•</span><span class="related-blogs-stats">{% if post.date %}{{ post.date | date: "%b %-d, %Y" }}{% endif %}{% if post.date and post.read_time %}<span class="home-meta-sep">•</span>{% endif %}{% if post.read_time %}{{ post.read_time }}{% endif %}</span>{% endif %}
       </div>
     </li>
     {% endfor %}
   </ul>
 </section>
+  </div>
+</div>
+{% else %}
+<section class="related-blogs" aria-label="Related blog posts">
+  <h2 class="related-blogs-title">Related Blogs</h2>
+  <ul class="related-blogs-list">
+    {% for post in related_pages %}
+    <li class="related-blogs-item">
+      <div class="related-blogs-line">
+        <span class="related-blogs-main"><a class="related-blogs-link" href="{{ post.url | relative_url }}">{{ post.title }}</a>{% if post.summary %}<span class="related-blogs-snippet"> — {{ post.summary | strip_html }}</span>{% endif %}</span>{% if post.date or post.read_time %}<span class="home-meta-sep related-blogs-sep">•</span><span class="related-blogs-stats">{% if post.date %}{{ post.date | date: "%b %-d, %Y" }}{% endif %}{% if post.date and post.read_time %}<span class="home-meta-sep">•</span>{% endif %}{% if post.read_time %}{{ post.read_time }}{% endif %}</span>{% endif %}
+      </div>
+    </li>
+    {% endfor %}
+  </ul>
+</section>
+{% endif %}
 {% endif %}
 {% endif %}
 

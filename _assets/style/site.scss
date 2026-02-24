@@ -599,10 +599,18 @@ img.zoom:not([width]) {
 }
 
 .related-blogs-line {
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
+    display: block;
     font-size: 95%;
+}
+
+.related-blogs-main {
+    white-space: normal;
+    overflow-wrap: anywhere;
+}
+
+.related-blogs-sep,
+.related-blogs-stats {
+    white-space: nowrap;
 }
 
 .related-blogs-stats {
