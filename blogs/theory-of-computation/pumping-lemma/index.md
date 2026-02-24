@@ -1,5 +1,5 @@
 ---
-title: "Theory of Computation: Pumping Lemma"
+title: "Pumping Lemma"
 toc: true
 attribution: wolgwang
 permalink: /theory-of-computation/pumping-lemma/

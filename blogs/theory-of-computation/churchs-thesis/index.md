@@ -1,5 +1,5 @@
 ---
-title: "Theory of Computation: Church's Thesis"
+title: "Church's Thesis"
 toc: true
 attribution: wolgwang
 permalink: /theory-of-computation/churchs-thesis/

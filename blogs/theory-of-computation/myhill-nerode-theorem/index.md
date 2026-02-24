@@ -1,5 +1,5 @@
 ---
-title: "Theory of Computation: Myhill-Nerode Theorem"
+title: "Myhill-Nerode Theorem"
 toc: true
 attribution: wolgwang
 permalink: /theory-of-computation/myhill-nerode-theorem/

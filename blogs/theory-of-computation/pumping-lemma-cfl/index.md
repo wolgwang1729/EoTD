@@ -1,11 +1,11 @@
 ---
-title: "Theory of Computation: Pumping Lemma for CFL"
+title: "Pumping Lemma for CFL"
 toc: true
 attribution: wolgwang
 permalink: /theory-of-computation/pumping-lemma-cfl/
 date: 2025-04-03
 blog: true
-topic: Formal Languages
+topic: Theory of Computation
 read_time: 11 min read
 summary: "Pumping lemma for context-free languages with parse-tree intuition and contradiction examples."
 ---

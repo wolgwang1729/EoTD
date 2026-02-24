@@ -537,6 +537,63 @@ img.zoom:not([width]) {
     font-weight: 700;
 }
 
+.related-blogs {
+    margin-top: 24px;
+    padding-top: 16px;
+    border-top: 1px solid $border-dark;
+}
+
+.related-blogs-title {
+    margin: 0 0 10px;
+    font-size: 1.4rem;
+}
+
+.related-blogs-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    gap: 8px;
+}
+
+.related-blogs-item {
+    margin: 0;
+    padding: 8px 0;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.related-blogs-item:last-child {
+    border-bottom: 0;
+    padding-bottom: 0;
+}
+
+.related-blogs-link {
+    font-weight: 700;
+    color: $text-primary;
+}
+
+.related-blogs-link:hover {
+    color: $link-hover-dark;
+    text-decoration: none;
+}
+
+.related-blogs-line {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    font-size: 95%;
+}
+
+.related-blogs-stats {
+    font-size: 82%;
+    color: $text-secondary;
+}
+
+.related-blogs-snippet {
+    font-size: 85%;
+    color: $text-secondary;
+}
+
 // JDZ turn on for debugging
 NOTdiv {
     border: 1px dotted gray;
