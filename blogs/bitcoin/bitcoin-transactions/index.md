@@ -7,7 +7,7 @@ date: 2026-02-24
 blog: true
 topic: Bitcoin
 read_time: 30 mins read
-summary: "A concise overview of Bitcoin transactions."
+summary: "Comprehensive breakdown of Bitcoin transactions, covering inputs, outputs, locking/unlocking scripts, script types, raw transaction parsing, fees, and real-world examples."
 ---
 
 ## Introduction
