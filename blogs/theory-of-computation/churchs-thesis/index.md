@@ -2,7 +2,7 @@
 title: "Theory of Computation: Church's Thesis"
 toc: true
 attribution: wolgwang
-permalink: /:basename/
+permalink: /theory-of-computation/churchs-thesis/
 date: 2025-04-10
 blog: true
 topic: Theory of Computation

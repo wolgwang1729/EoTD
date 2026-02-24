@@ -10,7 +10,7 @@ A Jekyll-powered technical blog by wolgwang.
 
 This repo contains the full source for the blog:
 
-- Long-form posts/pages in Markdown (for example `pumping-lemma.md`, `churchs-thesis.md`)
+- Long-form posts/pages in Markdown in `blogs`
 - Jekyll layouts/includes in `_layouts/` and `_includes/`
 - Theme/style sources in `_sass/`, `_assets/style/`, and `_assets/js/`
 - Build output in `_site/` (generated)
@@ -33,7 +33,7 @@ This repo contains the full source for the blog:
 ├── _assets/                 # Fonts, images, JS, and CSS assets
 ├── _site/                   # Generated static site output
 ├── website/home.md          # Home page source
-└── *.md                     # Blog pages/posts in Markdown
+└── *.md or subfolders*      # Blog pages/posts in Markdown (e.g. `theory-of-computation/`)
 ```
 
 ## Local development
@@ -87,7 +87,7 @@ Generated files are written to `_site/`.
 
 ## Writing and editing content
 
-- Add or edit Markdown files in the repository root or relevant content folders.
+- Add or edit Markdown files in the repository root or relevant content folders (posts can be grouped in topic folders).
 - Use front matter at the top of each Markdown file to control layout/metadata.
 - Default page layout is configured in `_config.yml` (`layout: default` for pages).
 - Update shared UI elements through `_includes/` and page wrappers in `_layouts/`.

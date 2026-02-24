@@ -2,7 +2,7 @@
 title: "Theory of Computation: Myhill-Nerode Theorem"
 toc: true
 attribution: wolgwang
-permalink: /:basename/
+permalink: /theory-of-computation/myhill-nerode-theorem/
 date: 2025-02-09
 blog: true
 topic: Theory of Computation
@@ -37,7 +37,7 @@ We know that a language is regular if a DFA can be constructed which accepts eve
 
 ### Example
 
-![DFA diagram](/_assets/img/DFA1.png){: .zoom }
+![DFA diagram](DFA1.png){: .zoom }
 
 **Step 2:**  
 The pairs that should be marked are $(A,E),(B,E),(C,E),(D,E)$
@@ -93,7 +93,7 @@ Now pairs $(A,C),(B,C)$ will be marked.
 **Step 5:**  
 The remaining unmarked pair is $(A,B)$, so states $A$ and $B$ will merge to a new state $AB$.
 
-![Minimised DFA diagram](/_assets/img/DFA2.png){: .zoom }
+![Minimised DFA diagram](DFA2.png){: .zoom }
 
 ### Intuition
 
