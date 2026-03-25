@@ -10,13 +10,18 @@ read_time: 30 mins read
 summary: "Behind the scenes of Sherlock Bitcoin: a practical walkthrough of the heuristics used to analyze Bitcoin transactions, score confidence, and explain results."
 ---
 
-## How the Heuristics Work
+## Introduction
 
-This post documents the exact heuristics used to analyze Bitcoin transactions, why they were chosen, and where they can fail.
+Let's be honest, writing a chain analysis engine from scratch wasn't exactly my plan for this semester. But after surviving all three challenge rounds of the Summer of Bitcoin (and somehow balancing that with my mid-sems), I’ve officially made it to the proposal round.
 
-The implementation is intentionally rule-based: it tries to surface likely transaction patterns quickly, with explicit low/medium/high confidence tiers, rather than claiming perfect wallet attribution or deanonymization.
+The last few weeks have been a brutal but incredibly fun grind of parsing raw hex, decoding scripts, and tracing UTXOs. All of those weekly projects and assignments were just building blocks. The culmination of that entire developer track is [Sherlock-Bitcoin](https://github.com/wolgwang1729/Sherlock).
 
----
+Sherlock is my attempt at making sense of Bitcoin transactions. If you've ever actually looked at raw block data, you know it's not a neat financial ledger, it's an absolute mess of inputs, outputs, and cryptographic locks. You can't just read it to see who paid whom; you have to guess at it using heuristics.
+
+This post documents the exact rules I hardcoded into Sherlock. I intentionally kept things rule-based and practical. Instead of claiming some magical, perfect deanonymization algorithm (which is a great way to look like an idiot on the internet), I built explicit structural gates to score transaction patterns with low, medium, or high confidence.
+
+Here is exactly how the logic works, why I chose these rules, and where they completely fall apart in the real world.
+
 
 ## Heuristics Implemented
 
@@ -524,6 +529,14 @@ To verify the accuracy of the implemented heuristics against real-world data, se
 -   **Consolidation (65% dominance)**: This captures transactions where value is clearly collapsing into a single destination without requiring a strict 100% sweep, allowing for small change remnants.
 -   **CoinJoin (2% tolerance)**: Allows for minor fee adjustments in equal-output groups without misclassifying standard payments.
 -   **Round Number (1,000,000 sats)**: This threshold (0.01 BTC) ensures the amount carries meaningful economic value, ruling out small dust limits or fee-market adjusters that might incidentally form round figures, and aligns with typical user-facing fiat-equivalent magnitudes.
+
+---
+
+## Conclusion
+
+Building these heuristics for Sherlock has been an incredible deep dive into the messy reality of Bitcoin transactions. While hardcoded, rule-based systems provide a solid, highly explainable foundation for chain analysis, they definitely hit a ceiling when dealing with edge cases, evolving wallet behaviors, and privacy-preserving setups. In the future, I might try throwing some machine learning at the problem to see if a model can catch the nuanced patterns that rigid thresholds miss.
+
+But for now, my immediate focus is shifting completely to the Summer of Bitcoin proposal round and, of course, getting back to grinding DSA 🤡.
 
 ---
 
