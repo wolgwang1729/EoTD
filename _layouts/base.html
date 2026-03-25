@@ -45,4 +45,19 @@
   <script type="text/javascript" src="/_assets/js/lightbox.js"></script>
   <script type="text/javascript" src="/_assets/js/auto-caption.js"></script>
   <link rel="stylesheet" href="/_assets/style/lightbox.css">
+  <script type="module">
+    import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+    document.addEventListener("DOMContentLoaded", () => {
+      const elements = document.querySelectorAll(".language-mermaid");
+      elements.forEach(el => {
+        const code = el.textContent;
+        const newDiv = document.createElement("div");
+        newDiv.className = "mermaid";
+        newDiv.textContent = code;
+        el.parentNode.replaceChild(newDiv, el);
+      });
+      mermaid.initialize({ startOnLoad: false, theme: 'dark' });
+      mermaid.run({ querySelector: '.mermaid' });
+    });
+  </script>
 </html>
