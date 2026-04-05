@@ -476,6 +476,17 @@ img.zoom:not([width]) {
     width: 50%;
 }
 
+/* Keep Mermaid diagrams visually centered within content. */
+#content .mermaid {
+    text-align: center;
+}
+
+#content .mermaid svg {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+
 .smallcaps {
     font-size: 80%;
     font-weight: 700;
