@@ -27,3 +27,28 @@
     </div>
   </div>
 </header>
+<script>
+  (function() {
+    var header = document.querySelector('.site-header');
+    if (!header) return;
+    var ticking = false;
+    var lastY = window.scrollY || 0;
+    function update() {
+      ticking = false;
+      var y = window.scrollY || 0;
+      header.classList.toggle('is-scrolled', y > 8);
+      var menuOpen = !!header.querySelector('details[open]');
+      var scrollingDown = y > lastY;
+      // Hide only after scrolling a bit down, and never while the mobile menu is open
+      header.classList.toggle('is-hidden', scrollingDown && y > 200 && !menuOpen);
+      lastY = y;
+    }
+    window.addEventListener('scroll', function() {
+      if (!ticking) {
+        ticking = true;
+        window.requestAnimationFrame(update);
+      }
+    }, { passive: true });
+    update();
+  })();
+</script>

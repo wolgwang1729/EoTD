@@ -124,6 +124,17 @@ main.main {
     border-bottom: 1px solid #202020;
     background: rgba(10, 10, 10, 0.9);
     backdrop-filter: blur(10px);
+    transition: background-color 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease, transform 0.25s ease;
+}
+
+.site-header.is-hidden {
+    transform: translateY(-100%);
+}
+
+.site-header.is-scrolled {
+    background: #0a0a0a;
+    border-bottom-color: #2a2a2a;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.45);
 }
 
 .site-header-inner {
@@ -132,6 +143,18 @@ main.main {
     align-items: center;
     justify-content: space-between;
     gap: 16px;
+    transition: min-height 0.2s ease;
+}
+
+.site-header.is-scrolled .site-header-inner {
+    min-height: 56px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .site-header,
+    .site-header-inner {
+        transition: none;
+    }
 }
 
 .site-title,
