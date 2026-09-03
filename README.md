@@ -45,16 +45,21 @@ Install Ruby and build tools (Ubuntu/Debian):
 ```bash
 sudo apt update
 sudo apt install -y ruby-full build-essential zlib1g-dev
-gem install bundler
+sudo gem install bundler
 ```
+
+> System Ruby installs to `/var/lib/gems/...` (not user-writable), so `gem install bundler` alone fails. Use `sudo` for Bundler itself only — project gems stay local (next step).
 
 ### 2) Install dependencies
 
 From the repository root:
 
 ```bash
+bundle config set --local path 'vendor/bundle'
 bundle install
 ```
+
+Gems are installed to `vendor/bundle/` (git-ignored via `.gitignore`), so no `sudo bundle install` needed.
 
 ### 3) Run the blog locally
 
